@@ -98,6 +98,7 @@ import pickle
 import time
 
 import koding
+import xbmcgui
 import resources.lib.external.tmdbsimple as tmdbsimple
 import xbmcaddon
 from koding import route
@@ -111,6 +112,7 @@ CACHE_TIME = 0  # change to wanted cache time in seconds
 
 addon_fanart = xbmcaddon.Addon().getAddonInfo('fanart')
 addon_icon = xbmcaddon.Addon().getAddonInfo('icon')
+addon_name = xbmcaddon.Addon().getAddonInfo('name')
 
 
 class TMDB(Plugin):
@@ -183,6 +185,11 @@ class TMDB(Plugin):
             result_item["properties"] = {'fanart_image': result_item["fanart"]}
             result_item['fanart_small'] = result_item["fanart"]
             return result_item
+
+    def clear_cache(self):
+        dialog = xbmcgui.Dialog()
+        if dialog.yesno(addon_name, "Clear TMDB Plugin Cache?"):
+            koding.Remove_Table("tmdb_plugin")
 
 
 @route(mode='tmdb', args=["url"])

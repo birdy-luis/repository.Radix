@@ -107,7 +107,6 @@ from resources.lib.util.context import get_context_items
 from resources.lib.util.xml import JenItem, JenList, display_list
 from unidecode import unidecode
 
-
 CACHE_TIME = 3600  # change to wanted cache time in seconds
 CACHE_TMDB_TIME = 3600 * 24 * 30
 SKIP_TMDB_INFO = False
@@ -116,6 +115,7 @@ TRAKT_API_KEY = __builtin__.trakt_client_id
 TRAKT_SECRET = __builtin__.trakt_client_secret
 addon_fanart = xbmcaddon.Addon().getAddonInfo('fanart')
 addon_icon = xbmcaddon.Addon().getAddonInfo('icon')
+addon_name = xbmcaddon.Addon().getAddonInfo('name')
 
 
 class Trakt(Plugin):
@@ -193,7 +193,8 @@ class Trakt(Plugin):
             item = JenItem(item_xml)
             url = item.get("link", ")").replace("trakt_list(", "")[:-1]
             user_id, list_id = url.split(",")
-            list_url = "https://api.trakt.tv/users/%s/lists/%s/items/" % (user_id, list_id)
+            list_url = "https://api.trakt.tv/users/%s/lists/%s/items/" % (
+                user_id, list_id)
             result_item = {
                 'label': item["title"],
                 'icon': item.get("thumbnail", addon_icon),
@@ -215,6 +216,11 @@ class Trakt(Plugin):
             return result_item
 
         return False
+
+    def clear_cache(self):
+        dialog = xbmcgui.Dialog()
+        if dialog.yesno(addon_name, "Clear Trakt Plugin Cache?"):
+            koding.Remove_Table("trakt_plugin")
 
 
 @route(mode='trakt', args=["url"])
@@ -266,7 +272,7 @@ def trakt(url):
         elif type(response) == list:
             for item in response:
                 if "/search/" in url:
-                        xml += get_search_xml(item)
+                    xml += get_search_xml(item)
                 elif "lists" in url:
                     if "items" not in url and "likes" not in url:
                         user_id = url.split("/")[4]
@@ -334,8 +340,8 @@ def trakt_tv_show(trakt_id):
 
         if type(response) == list:
             for item in response:
-                xml += get_season_xml(item, trakt_id, year, tvtitle,
-                                      tmdb, imdb)
+                xml += get_season_xml(item, trakt_id, year, tvtitle, tmdb,
+                                      imdb)
             xml = remove_non_ascii(xml)
             save_to_db(xml, url)
     jenlist = JenList(xml)
@@ -366,8 +372,8 @@ def trakt_season(slug):
 
         if type(response) == list:
             for item in response:
-                xml += get_episode_xml(item, trakt_id, year, tvtitle,
-                                       tmdb, imdb)
+                xml += get_episode_xml(item, trakt_id, year, tvtitle, tmdb,
+                                       imdb)
             xml = remove_non_ascii(xml)
             save_to_db(xml, url)
     jenlist = JenList(xml)
@@ -443,7 +449,8 @@ def get_show_xml(item):
     else:
         thumbnail = ""
     if info.get("backdrop_path", ""):
-        fanart = str("https://image.tmdb.org/t/p/w1280" + info["backdrop_path"])
+        fanart = str("https://image.tmdb.org/t/p/w1280" +
+                     info["backdrop_path"])
     else:
         fanart = ""
     xml = "<dir>"\
@@ -629,12 +636,10 @@ def authenticate():
         if time.time() > expires:
             return trakt_refresh_token()
         return access_token
-    values = {
-        "client_id": TRAKT_API_KEY
-    }
+    values = {"client_id": TRAKT_API_KEY}
 
-    device_codes = requests.post('https://api.trakt.tv/oauth/device/code',
-                                 data=values).json()
+    device_codes = requests.post(
+        'https://api.trakt.tv/oauth/device/code', data=values).json()
     data = {
         "code": device_codes["device_code"],
         "client_id": TRAKT_API_KEY,
@@ -647,11 +652,11 @@ def authenticate():
     progress_dialog.create(
         "Authenticate Trakt",
         "Please go to https://trakt.tv/activate and enter the code",
-        str(device_codes["user_code"])
-    )
+        str(device_codes["user_code"]))
     try:
         time_passed = 0
-        while not xbmc.abortRequested and not progress_dialog.iscanceled() and time_passed < expires_in:
+        while not xbmc.abortRequested and not progress_dialog.iscanceled(
+        ) and time_passed < expires_in:
             try:
                 response = requests.post(
                     'https://api.trakt.tv/oauth/device/token',
@@ -659,10 +664,10 @@ def authenticate():
             except Exception, e:
                 progress = int(100 * time_passed / expires_in)
                 progress_dialog.update(progress)
-                xbmc.sleep(max(device_codes["interval"], 1)*1000)
+                xbmc.sleep(max(device_codes["interval"], 1) * 1000)
             else:
                 response = response
-                expires_at = time.time() + 60*60*24*30
+                expires_at = time.time() + 60 * 60 * 24 * 30
                 addon.setSetting("TRAKT_EXPIRES_AT", str(expires_at))
                 addon.setSetting("TRAKT_ACCESS_TOKEN",
                                  response["access_token"])
@@ -686,15 +691,13 @@ def trakt_refresh_token():
         "grant_type": "refresh_token",
         "refresh_token": refresh_token
     }
-    response = requests.post('https://api.trakt.tv/oauth/token',
-                             data=data).json()
+    response = requests.post(
+        'https://api.trakt.tv/oauth/token', data=data).json()
     if response:
-        expires_at = time.time() + 60*60*24*30
+        expires_at = time.time() + 60 * 60 * 24 * 30
         addon.setSetting("TRAKT_EXPIRES_AT", str(expires_at))
-        addon.setSetting("TRAKT_ACCESS_TOKEN",
-                         response["access_token"])
-        addon.setSetting("TRAKT_REFRESH_TOKEN",
-                         response["refresh_token"])
+        addon.setSetting("TRAKT_ACCESS_TOKEN", response["access_token"])
+        addon.setSetting("TRAKT_REFRESH_TOKEN", response["refresh_token"])
         return response["access_token"]
 
 
@@ -704,18 +707,13 @@ def remove_non_ascii(text):
 
 def save_to_db(item, url):
     koding.reset_db()
-    koding.Remove_From_Table(
-        "trakt_plugin",
-        {
-            "url": url
-        })
+    koding.Remove_From_Table("trakt_plugin", {"url": url})
 
-    koding.Add_To_Table("trakt_plugin",
-                        {
-                            "url": url,
-                            "item": pickle.dumps(item).replace("\"", "'"),
-                            "created": time.time()
-                        })
+    koding.Add_To_Table("trakt_plugin", {
+        "url": url,
+        "item": pickle.dumps(item).replace("\"", "'"),
+        "created": time.time()
+    })
 
 
 def fetch_from_db(url):
@@ -731,27 +729,29 @@ def fetch_from_db(url):
         }
     }
     koding.Create_Table("trakt_plugin", trakt_plugin_spec)
-    match = koding.Get_From_Table(
-        "trakt_plugin", {"url": url})
+    match = koding.Get_From_Table("trakt_plugin", {"url": url})
     if match:
         match = match[0]
         if not match["item"]:
             return None
         created_time = match["created"]
         if "tmdb" in url:
-            if created_time and float(created_time) + CACHE_TMDB_TIME <= time.time():
+            if created_time and float(
+                    created_time) + CACHE_TMDB_TIME <= time.time():
                 match_item = match["item"].replace("'", "\"")
                 try:
                     match_item = match_item.encode('ascii', 'ignore')
                 except:
-                    match_item = match_item.decode('utf-8').encode('ascii', 'ignore')
+                    match_item = match_item.decode('utf-8').encode(
+                        'ascii', 'ignore')
                 return pickle.loads(match_item)
         if created_time and float(created_time) + CACHE_TIME >= time.time():
             match_item = match["item"].replace("'", "\"")
             try:
                 match_item = match_item.encode('ascii', 'ignore')
             except:
-                match_item = match_item.decode('utf-8').encode('ascii', 'ignore')
+                match_item = match_item.decode('utf-8').encode(
+                    'ascii', 'ignore')
             return pickle.loads(match_item)
         else:
             return []

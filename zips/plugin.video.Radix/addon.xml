@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.Radix" name="[COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B][/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]•[/B][/COLOR]" version="1.1" provider-name="Irlam And Pee Jay">
+<addon id="plugin.video.Radix" name="[COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B][/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]•[/B][/COLOR]" version="1.0" provider-name="Irlam And Pee Jay">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
         <import addon="script.module.nanscrapers" version="0.5.5" />
