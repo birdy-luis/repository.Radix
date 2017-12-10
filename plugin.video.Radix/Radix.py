@@ -21,7 +21,7 @@ import __builtin__
 ###################### RADIX ######################
 import base64
 import __builtin__
-root_xml_url = base64.b64decode(b"aHR0cDovL2tvZGlhZGRvbnMudWsvUmFkaXgvUkFESVgtTUFJTi1NRU5VLnhtbA==")
+root_xml_url = base64.b64decode(b"aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L3JSY0xrSkpV")
 __builtin__.tvdb_api_key = base64.b64decode(b"MDRCNTQxNzcxRkE5ODBBNw==")
 __builtin__.tmdb_api_key = base64.b64decode(b"ZGYzM2Q1ZmJlMjk2NDA4OTVlYjk5MTc0YzgwMWRiYzc=")
 __builtin__.trakt_client_id = base64.b64decode(b"ZmQwYjVlZTZmNTllMDMwNThiZDY4MGY1MWU0N2NhMTliM2VkMTVlZmE5NWVlMDhlMWVmMGJkYWZhZjkyNmY0Mg==")
@@ -134,7 +134,7 @@ def all_episodes(url):
         if dialog.iscanceled():
             break
         percent = ((index + 1) * 100) / num_urls
-        dialog.update(percent, _("processing lists"), _("%s of %s") % (index + 1,
+        dialog.update(percent, _("Processing Lists Please Be Patient..."), _("%s of %s") % (index + 1,
                                                                  num_urls))
 
         jen_list = JenList(season_url)

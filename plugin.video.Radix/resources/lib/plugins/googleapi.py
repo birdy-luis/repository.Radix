@@ -60,9 +60,9 @@ addon_icon = xbmcaddon.Addon().getAddonInfo('icon')
 fanart = xbmcaddon.Addon().getAddonInfo('fanart')
 icon = xbmcaddon.Addon().getAddonInfo('icon')
 addonname = xbmcaddon.Addon().getAddonInfo('name')
-region = "US"
+region = "UK"
 key = "AIzaSyDR7n_PxzzU7ZnSWqJQN2lga0ft83jVc74" # Your YouTube Key Goes Here
-headers = {'Referer':" "}			# Your YouTuve Referer Key Goes Here
+headers = {'Referer':" "}			# Your YouTube Referer Key Goes Here
 blacklist = ['news','music','radio','nasa','chat']
 regulate = HTMLParser.HTMLParser()
 

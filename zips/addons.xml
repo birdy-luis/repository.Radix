@@ -25,6 +25,69 @@
     </extension>
 </addon>
 
+<addon id="plugin.program.kodiaddons" name="[COLOR red]K[/COLOR][COLOR white]O[/COLOR][COLOR blue]D[/COLOR][COLOR red]I-[/COLOR][COLOR white]A[/COLOR][COLOR blue]D[/COLOR][COLOR red]D[/COLOR][COLOR white]O[/COLOR][COLOR blue]N[/COLOR][COLOR red]S-[/COLOR][COLOR white]U[/COLOR][COLOR blue]K[/COLOR][COLOR white]  Updates[/COLOR]" version="1.1" provider-name="KodiAddons.UK">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.service" library="startup.py" start="startup" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">[COLOR red]K[/COLOR][COLOR white]O[/COLOR][COLOR blue]D[/COLOR][COLOR red]I-[/COLOR][COLOR white]A[/COLOR][COLOR blue]D[/COLOR][COLOR red]D[/COLOR][COLOR white]O[/COLOR][COLOR blue]N[/COLOR][COLOR red]S-[/COLOR][COLOR white]U[/COLOR][COLOR blue]K[/COLOR][COLOR white]  Updater[/COLOR]</summary>
+    <description lang="en">The KodiAddons.UK Updater Allows You To Get Access To The Latest KodiAddons.UK Kodi Versions And Updates.
+[CR]Use The Youtube Videos Before Updating To Look How To Use The Updater !!!</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.video.ask"
+       name="[COLOR yellow][B]•[/B][/COLOR][COLOR cyan][B]A[/B][/COLOR][COLOR yellow][B]•[/B][/COLOR][COLOR red][B]S[/B][/COLOR][COLOR yellow][B]•[/B][/COLOR][COLOR cyan][B]K[/B][/COLOR][COLOR yellow][B]•[/B][/COLOR]"
+       version="1.0.1"
+       provider-name="[COLOR yellow][B]•[/B][/COLOR][COLOR cyan][B]A[/B][/COLOR][COLOR yellow][B]•[/B][/COLOR][COLOR red][B]S[/B][/COLOR][COLOR yellow][B]•[/B][/COLOR][COLOR cyan][B]K[/B][/COLOR][COLOR yellow][B]•[/B][/COLOR]">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	  <import addon="script.module.t0mm0.common" version="2.0.0"/>
+    <import addon="script.module.beautifulsoup" version="3.2.1"/>
+    <import addon="script.module.simple.downloader" version="0.9.4"/>
+    <import addon="script.module.beautifulsoup4" />
+    <import addon="script.module.simple.downloader" version="0.9.4"/>
+    <import addon="script.module.requests" />
+    <import addon="script.module.httplib2" />
+    <import addon="script.module.youtube.dl" optional="true"/>
+    <import addon="plugin.video.youtube" version="3.0.0"/>
+    <import addon="script.module.urlresolver"  version="3.0.0"/>
+    <import addon="script.module.simplejson" />
+    <import addon="script.common.plugin.cache" version="2.5.2"/>
+    <import addon="script.module.metahandler" version="2.5.1"/>
+
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="ASK.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">[COLOR yellow][B]A HUGE THANKS TO ALL THE POSTERS IN THE GROUP... WITHOUT YOU THIS ADDON WOULD NOT EXIST !!![/COLOR]</summary>
+    <description lang="en">[COLOR cyan][B]WE DO NOT HOST PIRATED CONTENT BUT INSTEAD WE CONNECT OUR USERS TO SOURCES ALREADY AVAILABLE ONLINE...[/B][/COLOR]</description>
+    <platform>all</platform>
+    <news>
+New scraper for M3U files added source cafe-Tv
+  </news>
+    <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+    <screenshot>resources/screenshots/screenshot001.png</screenshot>
+    <screenshot>resources/screenshots/screenshot002.png</screenshot>
+    <screenshot>resources/screenshots/screenshot003.png</screenshot>
+    <screenshot>resources/screenshots/screenshot004.png</screenshot>
+    <screenshot>resources/screenshots/screenshot005.png</screenshot>
+    <screenshot>resources/screenshots/screenshot006.png</screenshot>
+    <screenshot>resources/screenshots/screenshot007.png</screenshot>
+    <screenshot>resources/screenshots/screenshot008.png</screenshot>
+    <screenshot>resources/screenshots/screenshot009.png</screenshot>
+    </assets>
+  </extension>
+</addon>
+
 <addon id="plugin.video.f4mTester" version="2.7.1" name="f4mTester" provider-name="Shani">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0"/>
@@ -40,7 +103,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.Radix" name="[COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B][/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]•[/B][/COLOR]" version="1.1" provider-name="Irlam And Pee Jay">
+<addon id="plugin.video.Radix" name="[COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]•[/B][/COLOR]" version="1.1" provider-name="Team [COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]•[/B][/COLOR] ">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
         <import addon="script.module.nanscrapers" version="0.5.5" />
@@ -57,7 +120,7 @@
     </extension>
     <extension point="xbmc.service" library="service.py" start="[login|startup]" />
     <extension point="xbmc.addon.metadata">
-        <summary lang="en">[COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B][/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]•[/B][/COLOR]</summary>
+        <summary lang="en">[COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]•[/B][/COLOR]</summary>
         <description lang="en">Powerd By Jen</description>
         <platform>all</platform>
         <website></website>

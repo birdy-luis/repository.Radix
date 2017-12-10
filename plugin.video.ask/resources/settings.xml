@@ -1,0 +1,36 @@
+<settings>
+<category label="[COLOR yellow]LOGIN[/COLOR]">
+     <setting id="Text" type="lsep" label="[COLOR yellow]                                 [B]Please sign up at www.ask4accsess.com/members[/COLOR][/B]" />
+     <setting type="sep"/>
+	 <setting type="lsep" label="[COLOR none][/COLOR]"/>
+     <setting id="Username" type="text" label="E-mail" default=""/>
+     <setting type="lsep" label="[COLOR none][/COLOR]"/>
+	 <setting type="sep"/>
+	 <setting type="lsep" label="[COLOR none][/COLOR]"/>
+	 <setting id="Password" type="text" option="writeable,hidden" label="Password" default=""/>
+	 <setting type="lsep" label="[COLOR none][/COLOR]"/>
+     <setting type="sep"/>
+	 <setting type="lsep" label="[COLOR none][/COLOR]"/>
+	 <setting id="improve" type="bool" label="Use Advanced Settings?"value="true"/>
+	 <setting type="lsep" label="[COLOR none][/COLOR]"/>
+	 <setting type="sep"/>
+</category>
+<category label="[COLOR lawngreen]Link to FMG[/COLOR]">
+	        <setting type="sep"/>
+			<setting type="lsep" label="[COLOR none][/COLOR]"/>
+			<setting label="Refresh/Link To FMG" type="action" action="RunScript($CWD/FMG.py)"/>
+			<setting type="lsep" label="[COLOR none][/COLOR]"/>
+            <setting type="sep"/>
+			<setting type="lsep" label="[COLOR none][/COLOR]"/>
+			<setting label="UnLink FMG" type="action" action="RunScript($CWD/FMGR.py)"/>
+			<setting type="lsep" label="[COLOR none][/COLOR]"/>
+			<setting type="sep"/>           
+	</category>
+	<category label="[COLOR red]Grab IMDB Info[/COLOR]">
+		<setting type="sep"/>
+		<setting type="lsep" label="[COLOR none][/COLOR]"/>
+        <setting id="Data" type="bool" label='Grab Program information from IMDB For Open Directories?' default="true" visible="true"/>
+        <setting type="lsep" label="[COLOR none][/COLOR]"/>
+		<setting type="sep"/>
+    </category>
+</settings>

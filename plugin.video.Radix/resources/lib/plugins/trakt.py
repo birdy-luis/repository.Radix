@@ -285,6 +285,8 @@ def trakt(url):
                 elif "show" in item:
                     xml += get_show_xml(item["show"])
                     __builtin__.content_type = "tvshows"
+                elif "person" in item:
+                    xml += get_person_xml(item)
                 else:  # one of the annoying types
                     if "movies" in url:
                         xml += get_movie_xml(item)
@@ -628,6 +630,21 @@ def get_search_xml(item):
     return xml
 
 
+def get_person_xml(item):
+    xml = ""
+    name = item["person"]["name"]
+    slug = item["person"]["ids"]["slug"]
+    xml += "<dir>\n"\
+           "\t<title>%s Movies</title>\n"\
+           "\t<trakt>https://api.trakt.tv/people/%s/movies</trakt>\n"\
+           "</dir>\n\n" % (name, slug)
+    xml += "<dir>\n"\
+           "\t<title>%s Shows</title>\n"\
+           "\t<trakt>https://api.trakt.tv/people/%s/shows</trakt>\n"\
+           "</dir>\n\n" % (name, slug)
+    return xml
+
+
 def authenticate():
     addon = xbmcaddon.Addon()
     access_token = addon.getSetting("TRAKT_ACCESS_TOKEN")
@@ -737,7 +754,7 @@ def fetch_from_db(url):
         created_time = match["created"]
         if "tmdb" in url:
             if created_time and float(
-                    created_time) + CACHE_TMDB_TIME <= time.time():
+                    created_time) + CACHE_TMDB_TIME >= time.time():
                 match_item = match["item"].replace("'", "\"")
                 try:
                     match_item = match_item.encode('ascii', 'ignore')
@@ -745,7 +762,7 @@ def fetch_from_db(url):
                     match_item = match_item.decode('utf-8').encode(
                         'ascii', 'ignore')
                 return pickle.loads(match_item)
-        if created_time and float(created_time) + CACHE_TIME >= time.time():
+        if created_time and float(created_time) + float(CACHE_TIME) >= time.time():
             match_item = match["item"].replace("'", "\"")
             try:
                 match_item = match_item.encode('ascii', 'ignore')

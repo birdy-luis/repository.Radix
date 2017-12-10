@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.program.kodiaddons" name="[COLOR red]K[/COLOR][COLOR white]O[/COLOR][COLOR blue]D[/COLOR][COLOR red]I-[/COLOR][COLOR white]A[/COLOR][COLOR blue]D[/COLOR][COLOR red]D[/COLOR][COLOR white]O[/COLOR][COLOR blue]N[/COLOR][COLOR red]S-[/COLOR][COLOR white]U[/COLOR][COLOR blue]K[/COLOR][COLOR white]  Updates[/COLOR]" version="1.1" provider-name="KodiAddons.UK">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.service" library="startup.py" start="startup" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">[COLOR red]K[/COLOR][COLOR white]O[/COLOR][COLOR blue]D[/COLOR][COLOR red]I-[/COLOR][COLOR white]A[/COLOR][COLOR blue]D[/COLOR][COLOR red]D[/COLOR][COLOR white]O[/COLOR][COLOR blue]N[/COLOR][COLOR red]S-[/COLOR][COLOR white]U[/COLOR][COLOR blue]K[/COLOR][COLOR white]  Updater[/COLOR]</summary>
+    <description lang="en">The KodiAddons.UK Updater Allows You To Get Access To The Latest KodiAddons.UK Kodi Versions And Updates.
+[CR]Use The Youtube Videos Before Updating To Look How To Use The Updater !!!</description>
+    <platform>all</platform>
+  </extension>
+</addon>

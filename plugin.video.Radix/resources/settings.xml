@@ -2,8 +2,8 @@
         <!-- customization settings -->
     <category label="Customization">
       <setting label="Display" type="lsep"/>
-      <setting label="Enable Settings Context item" type="bool" id="settings_context" default="false"/>
-      <setting label="Enable Trailer Context item" type="bool" id="trailer_context" default="false"/>
+      <setting label="Enable Settings Context item" type="bool" id="settings_context" default="true"/>
+      <setting label="Enable Trailer Context item" type="bool" id="trailer_context" default="true"/>
       <setting label="Hide Help Videos" type="bool" id="hide_help" default="false"/>
       <setting label="32505" type="lsep"/>
       <setting label="32506" type="select"
@@ -14,8 +14,11 @@
       <setting label="Disable metadata Dialog" type="bool" id="disable_metadata_dialog" default="false"/>
       <setting label="32508" type="select" values="Trakt|TMDB" id="movie_metadata_provider" default="TVDB"/>
       <setting label="32509" type="select" values="Trakt|TVDB" id="tv_metadata_provider" default="TVDB"/>
+	  <setting type="lsep" label="TMDB API KEY" />
+	  <setting id="tm.user" type="text" option="hidden" label="32309" default="" />
+	  <setting type="sep" />
       <setting label="32510" type="lsep"/>
-      <setting label="32511" type="select" values="BOTH|SD|HD" id="default_link" default="BOTH"/>
+      <setting label="32511" type="select" values="BOTH|SD|HD" id="default_link" default="HD"/>
       <setting label="32514" type="lsep"/>
       <setting label="32515" type="bool" id="enable_gifs" default="true" />
     </category>
