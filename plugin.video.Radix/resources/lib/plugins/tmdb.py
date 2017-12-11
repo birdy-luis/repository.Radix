@@ -16,7 +16,81 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-    
+    Usage Examples:
+    <dir>
+      <title>TMDB Popular</title>
+      <tmdb>movies/popular</tmdb>
+    </dir>
+
+    <dir>
+      <title>TMDB Now Playing</title>
+      <tmdb>movies/now_playing</tmdb>
+    </dir>
+
+    <dir>
+      <title>TMDB Top Rated</title>
+      <tmdb>movies/top_rated</tmdb>
+    </dir>
+
+    <dir>
+      <title>TMDB Action Movies</title>
+      <tmdb>genre/movies/28</tmdb>
+    </dir>
+
+    <dir>
+      <title>TMDB Army Movies</title>
+      <tmdb>keyword/movies/6092</tmdb>
+    </dir>
+
+    <dir>
+      <title>TMDB Star Wars Collection</title>
+      <tmdb>collection/10</tmdb>
+    </dir>
+
+    <dir>
+      <title>TMDB Popular</title>
+      <tmdb>tv/popular</tmdb>
+    </dir>
+
+    <dir>
+      <title>TMDB Top Rated</title>
+      <tmdb>tv/top_rated</tmdb>
+    </dir>
+
+    <dir>
+      <title>TMDB Airing Today</title>
+      <tmdb>tv/today</tmdb>
+    </dir>
+
+    <dir>
+      <title>TMDB Animation Shows</title>
+      <tmdb>genre/shows/16</tmdb>
+    </dir>
+
+    <dir>
+      <title>TMDB King Shows</title>
+      <tmdb>keyword/shows/13084</tmdb>
+    </dir>
+
+    <dir>
+      <title>TMDB List: Animal Kingdom</title>
+      <tmdb>list/13488</tmdb>
+    </dir>
+
+    <dir>
+      <title>Bryan Cranston Shows TMDB</title>
+      <tmdb>person/shows/17419</tmdb>
+    </dir>
+
+    <dir>
+      <title>Bryan Cranston Movies TMDB</title>
+      <tmdb>person/movies/17419</tmdb>
+    </dir>
+
+    <dir>
+      <title>Search TMDB</title>
+      <tmdb>search</tmdb>
+    </dir>
 """
 
 import __builtin__
@@ -24,6 +98,7 @@ import pickle
 import time
 
 import koding
+import xbmcgui
 import resources.lib.external.tmdbsimple as tmdbsimple
 import xbmcaddon
 from koding import route
@@ -33,10 +108,11 @@ from resources.lib.util.xml import JenItem, JenList, display_list
 from unidecode import unidecode
 
 
-CACHE_TIME = 3600  # change to wanted cache time in seconds
+CACHE_TIME = 0  # change to wanted cache time in seconds
 
 addon_fanart = xbmcaddon.Addon().getAddonInfo('fanart')
 addon_icon = xbmcaddon.Addon().getAddonInfo('icon')
+addon_name = xbmcaddon.Addon().getAddonInfo('name')
 
 
 class TMDB(Plugin):
@@ -110,6 +186,11 @@ class TMDB(Plugin):
             result_item['fanart_small'] = result_item["fanart"]
             return result_item
 
+    def clear_cache(self):
+        dialog = xbmcgui.Dialog()
+        if dialog.yesno(addon_name, "Clear TMDB Plugin Cache?"):
+            koding.Remove_Table("tmdb_plugin")
+
 
 @route(mode='tmdb', args=["url"])
 def tmdb(url):
@@ -145,26 +226,6 @@ def tmdb(url):
             for item in response["results"]:
                 xml += get_movie_xml(item)
                 content = "movies"
-        elif url.startswith("people"):
-            if url.startswith("people/popular"):
-                last = url.split("/")[-1]
-                if last.isdigit():
-                    page = int(last)
-                if not response:
-                    response = tmdbsimple.People().popular(page=page)
-            for item in response["results"]:
-                xml += get_person_xml(item)
-                content = "movies"
-        elif url.startswith("movie"):
-            if url.startswith("movie/upcoming"):
-                last = url.split("/")[-1]
-                if last.isdigit():
-                    page = int(last)
-                if not response:
-                    response = tmdbsimple.Movies().upcoming(page=page)
-            for item in response["results"]:
-                xml += get_trailer_xml(item)
-                content = "movies"
         elif url.startswith("tv"):
             if url.startswith("tv/popular"):
                 last = url.split("/")[-1]
@@ -184,12 +245,6 @@ def tmdb(url):
                     page = int(last)
                 if not response:
                     response = tmdbsimple.TV().airing_today(page=page)
-            elif url.startswith("tv/on_the_air"):
-                last = url.split("/")[-1]
-                if last.isdigit():
-                    page = int(last)
-                if not response:
-                    response = tmdbsimple.TV().on_the_air(page=page)
             for item in response["results"]:
                 xml += get_show_xml(item)
                 content = "tvshows"
@@ -204,14 +259,6 @@ def tmdb(url):
                 elif "name" in item:
                     xml += get_show_xml(item)
                     content = "tvshows"
-        elif url.startswith("trailer"):
-            movie_id = url.split("/")[-1]
-            if not response:
-                response = tmdbsimple.Movies(movie_id).videos()
-            for item in response["results"]:
-                if "type" in item:
-                    xml += get_trailer_video_xml(item)
-                    content = "movies"
         elif url.startswith("person"):
             split_url = url.split("/")
             person_id = split_url[-1]
@@ -257,54 +304,6 @@ def tmdb(url):
                 elif media == "shows":
                     xml += get_show_xml(item)
                     content = "tvshows"
-        elif url.startswith("year"):
-            split_url = url.split("/")
-            if len(split_url) == 3:
-                url += "/1"
-                split_url.append(1)
-            page = int(split_url[-1])
-            release_year = split_url[-2]
-            media = split_url[-3]
-            if media == "movies":
-                if not response:
-                    response = tmdbsimple.Discover().movie(primary_release_year=release_year,
-                                                           page=page)
-            for item in response["results"]:
-                if media == "movies":
-                    xml += get_movie_xml(item)
-                    content = "movies"
-        elif url.startswith("network"):
-            split_url = url.split("/")
-            if len(split_url) == 3:
-                url += "/1"
-                split_url.append(1)
-            page = int(split_url[-1])
-            network_id = split_url[-2]
-            media = split_url[-3]
-            if media == "shows":
-                if not response:
-                    response = tmdbsimple.Discover().tv(with_networks=network_id,
-                                                        page=page)
-            for item in response["results"]:
-                if media == "shows":
-                    xml += get_show_xml(item)
-                    content = "tvshows"
-        elif url.startswith("company"):
-            split_url = url.split("/")
-            if len(split_url) == 3:
-                url += "/1"
-                split_url.append(1)
-            page = int(split_url[-1])
-            company_id = split_url[-2]
-            media = split_url[-3]
-            if media == "movies":
-                if not response:
-                    response = tmdbsimple.Discover().movie(with_companies=company_id,
-                                                           page=page)
-            for item in response["results"]:
-                if media == "movies":
-                    xml += get_movie_xml(item)
-                    content = "movies"
         elif url.startswith("keyword"):
             split_url = url.split("/")
             if len(split_url) == 3:
@@ -394,14 +393,8 @@ def tmdb(url):
 
 def get_movie_xml(item):
     title = remove_non_ascii(item["title"])
+    year = item["release_date"].split("-")[0]
     tmdb_id = item["id"]
-
-    if not "release_date" in item:
-        year = ""
-    else:
-        year = item["release_date"].split("-")[0]
-        if not year:
-            year = tmdbsimple.Movies(tmdb_id).info()["release_date"]
     url = "tmdb_imdb({0})".format(tmdb_id)
     imdb = fetch_from_db(url)
     if not imdb:
@@ -434,61 +427,6 @@ def get_movie_xml(item):
           "</item>" % (title, imdb, title, year, thumbnail, fanart)
     return xml
 
-def get_trailer_xml(item):
-    title = remove_non_ascii(item["title"])
-    tmdb_id = item["id"]
-    url = "tmdb_imdb({0})".format(tmdb_id)
-    summary = remove_non_ascii(item["overview"])
-    if item["poster_path"]:
-        thumbnail = "https://image.tmdb.org/t/p/w1280/" + item["poster_path"]
-    else:
-        thumbnail = ""
-    if item["backdrop_path"]:
-        fanart = "https://image.tmdb.org/t/p/w1280/" + item["backdrop_path"]
-    else:
-        fanart = ""
-    xml = "<dir>" \
-          "<title>%s</title>" \
-          "<tmdb>trailer/%s</tmdb>"\
-          "<thumbnail>%s</thumbnail>" \
-          "<fanart>%s</fanart>" \
-          "<summary>%s</summary>" \
-          "</dir>" % (title, tmdb_id, thumbnail, fanart, summary)
-    return xml
-
-def get_trailer_video_xml(item):
-    title = remove_non_ascii(item["name"])
-    tmdb_id = item["id"]
-    key = item["key"]
-    url = "tmdb_imdb({0})".format(tmdb_id)
-
-    xml = "<item>" \
-          "<title>%s</title>" \
-          "<link>https://www.youtube.com/watch?v=%s&feature=youtube</link>"\
-          "<summary>%s</summary>" \
-          "</item>" % (title, key, title)
-    return xml
-
-def get_person_xml(item):
-    title = remove_non_ascii(item["name"])
-    tmdb_id = item["id"]
-    url = "tmdb_imdb({0})".format(tmdb_id)
-    if item["profile_path"]:
-        thumbnail = "https://image.tmdb.org/t/p/w1280/" + item["profile_path"]
-    else:
-        thumbnail = ""
-    if item["profile_path"]:
-        fanart = "https://image.tmdb.org/t/p/w1280/" + item["profile_path"]
-    else:
-        fanart = ""
-    xml = "<dir>" \
-          "<title>%s</title>" \
-          "<tmdb>person/movies/%s</tmdb>"\
-          "<thumbnail>%s</thumbnail>" \
-          "<fanart>%s</fanart>" \
-          "<summary>%s</summary>" \
-          "</dir>" % (title, tmdb_id, thumbnail, fanart, title)
-    return xml
 
 def get_show_xml(item):
     title = remove_non_ascii(item["name"])

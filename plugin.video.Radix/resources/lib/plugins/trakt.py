@@ -16,6 +16,76 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+    Usage Examples:
+    <dir>
+      <title>Trending Movies</title>
+      <trakt>https://api.trakt.tv/movies/trending</trakt>
+    </dir>
+
+    <dir>
+      <title>Popular Movies</title>
+      <trakt>https://api.trakt.tv/movies/popular</trakt>
+    </dir>
+
+    <dir>
+      <title>Movie Watchlist</title>
+      <trakt>https://api.trakt.tv/sync/watchlist/movies</trakt>
+    </dir>
+
+    <dir>
+      <title>Movie Collection</title>
+      <trakt>https://api.trakt.tv/sync/collection/movies</trakt>
+    </dir>
+
+    <dir>
+      <title>Trending Shows</title>
+      <trakt>https://api.trakt.tv/shows/trending</trakt>
+    </dir>
+
+    <dir>
+      <title>Popular Shows</title>
+      <trakt>https://api.trakt.tv/shows/popular</trakt>
+    </dir>
+
+    <dir>
+      <title>TV Watchlist</title>
+      <trakt>https://api.trakt.tv/sync/watchlist/shows</trakt>
+    </dir>
+
+    <dir>
+      <title>TV Collection</title>
+      <trakt>https://api.trakt.tv/sync/collection/shows</trakt>
+    </dir>
+
+    <dir>
+      <title>My lists</title>
+      <trakt>https://api.trakt.tv/users/me/lists/</trakt>
+    </dir>
+
+    <dir>
+      <title>My Liked Lists</title>
+      <trakt>https://api.trakt.tv/users/likes/lists</trakt>
+    </dir>
+
+    <dir>
+      <title>Reddit Top 250 (2017 Edition)</title>
+      <trakt>https://api.trakt.tv/users/philrivers/lists/reddit-top-250-2017-edition/items</trakt>
+    </dir>
+
+    <dir>
+      <title>Bryan Cranston Movies Trakt</title>
+      <trakt>https://api.trakt.tv/people/bryan-cranston/movies</trakt>
+    </dir>
+
+    <dir>
+      <title>Bryan Cranston shows Trakt</title>
+      <trakt>https://api.trakt.tv/people/bryan-cranston/shows</trakt>
+    </dir>
+
+    <dir>
+      <title>Search Trakt</title>
+      <trakt>search</trakt>
+    </dir>
 """
 
 import __builtin__
@@ -215,8 +285,6 @@ def trakt(url):
                 elif "show" in item:
                     xml += get_show_xml(item["show"])
                     __builtin__.content_type = "tvshows"
-                elif "person" in item:
-                    xml += get_person_xml(item)
                 else:  # one of the annoying types
                     if "movies" in url:
                         xml += get_movie_xml(item)
@@ -560,21 +628,6 @@ def get_search_xml(item):
     return xml
 
 
-def get_person_xml(item):
-    xml = ""
-    name = item["person"]["name"]
-    slug = item["person"]["ids"]["slug"]
-    xml += "<dir>\n"\
-           "\t<title>%s Movies</title>\n"\
-           "\t<trakt>https://api.trakt.tv/people/%s/movies</trakt>\n"\
-           "</dir>\n\n" % (name, slug)
-    xml += "<dir>\n"\
-           "\t<title>%s Shows</title>\n"\
-           "\t<trakt>https://api.trakt.tv/people/%s/shows</trakt>\n"\
-           "</dir>\n\n" % (name, slug)
-    return xml
-
-
 def authenticate():
     addon = xbmcaddon.Addon()
     access_token = addon.getSetting("TRAKT_ACCESS_TOKEN")
@@ -684,7 +737,7 @@ def fetch_from_db(url):
         created_time = match["created"]
         if "tmdb" in url:
             if created_time and float(
-                    created_time) + CACHE_TMDB_TIME >= time.time():
+                    created_time) + CACHE_TMDB_TIME <= time.time():
                 match_item = match["item"].replace("'", "\"")
                 try:
                     match_item = match_item.encode('ascii', 'ignore')
@@ -692,7 +745,7 @@ def fetch_from_db(url):
                     match_item = match_item.decode('utf-8').encode(
                         'ascii', 'ignore')
                 return pickle.loads(match_item)
-        if created_time and float(created_time) + float(CACHE_TIME) >= time.time():
+        if created_time and float(created_time) + CACHE_TIME >= time.time():
             match_item = match["item"].replace("'", "\"")
             try:
                 match_item = match_item.encode('ascii', 'ignore')
