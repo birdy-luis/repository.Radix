@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.Radix" name="[COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]•[/B][/COLOR] Repo" version="1.1" provider-name="[COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]•[/B][/COLOR]">
+<addon id="repository.Radix" name="[COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]•[/B][/COLOR] Repo" version="1.2" provider-name="[COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]•[/B][/COLOR]">
 	<extension point="xbmc.addon.repository" name="[COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]• Repo[/B][/COLOR]">
 		<dir>
 			<info compressed="false">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml</info>
