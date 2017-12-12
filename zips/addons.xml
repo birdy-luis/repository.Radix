@@ -110,8 +110,13 @@
         <import addon="script.module.requests" version="2.9.1" />
         <import addon="script.module.addon.common" version="2.0.0" />
         <import addon="script.module.xmltodict" version="0.9.0" />
-        <!--<import addon="script.module.web-pdb" version="1.0"/>-->
         <import addon="script.module.urlresolver" version="1.2.0" />
+        <import addon="plugin.video.SportsDevil" version="" />
+        <import addon="plugin.video.live.streamspro" version="2.8.1" />
+        <import addon="plugin.video.youtube" version="5.4.5" />
+        <import addon="script.video.F4mProxy" version="2.8.7" />
+        <import addon="program.plexus" version="0.1.7" />
+		<!--<import addon="script.module.web-pdb" version="1.0"/>-->
     </requires>
     <extension point="xbmc.python.pluginsource" library="Radix.py">
         <provides>audio video</provides>
@@ -324,8 +329,8 @@ For updates check the readme.
 		<datadir zip="true">https://raw.githubusercontent.com/irlam/repository.Radix/master/zips/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Home Of  the  Radix repo</summary>
-		<description lang="en">Radix Repo</description>
+		<summary lang="en">Home Of  the  [COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]• Repo[/B][/COLOR] Repo</summary>
+		<description lang="en">[COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]• Repo[/B][/COLOR] Repo</description>
 		<genre>uk</genre>
 	</extension>
 </addon>

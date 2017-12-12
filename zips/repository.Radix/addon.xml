@@ -11,8 +11,8 @@
 		<datadir zip="true">https://raw.githubusercontent.com/irlam/repository.Radix/master/zips/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Home Of  the  Radix repo</summary>
-		<description lang="en">Radix Repo</description>
+		<summary lang="en">Home Of  the  [COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]• Repo[/B][/COLOR] Repo</summary>
+		<description lang="en">[COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]• Repo[/B][/COLOR] Repo</description>
 		<genre>uk</genre>
 	</extension>
 </addon>
