@@ -101,7 +101,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.Radix" name="[COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]•[/B][/COLOR]" version="1.2" provider-name="Team [COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]•[/B][/COLOR]">
+<addon id="plugin.video.Radix" name="[COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]•[/B][/COLOR]" version="1.3" provider-name="Team [COLOR white][B]•[/B][/COLOR][COLOR red][B]R[/B][/COLOR][COLOR white][B]A[/B][/COLOR][COLOR red][B]D[/B][/COLOR][COLOR white][B]I[/B][/COLOR][COLOR red][B]X[/B][/COLOR][COLOR white][B]•[/B][/COLOR]">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
         <import addon="script.module.nanscrapers" version="0.5.5" />
